@@ -17,12 +17,24 @@
 using namespace std::string_literals;
 
 
-/*FILE _iob[] = {*stdin, *stdout, *stderr};
 
-extern "C" FILE * __cdecl __iob_func(void)
+unsigned int hex2int(const std::string& hexstring)
 {
-	return _iob;
-}*/
+	std::stringstream ss;
+	ss << std::hex << hexstring;
+	unsigned int value;
+	ss >> value;
+	return value;
+}
+
+
+
+std::string int2hex(unsigned int value)
+{
+	std::stringstream stream;
+	stream << std::hex << value;
+	return stream.str();
+}
 
 
 
@@ -40,7 +52,7 @@ void Export(HT* hts, const std::string& Folder)
 
 		if (info.data)
 		{
-			std::string filename = Folder + "\\"s + std::to_string(key) + ".png"s;
+			std::string filename = Folder + "\\#"s + int2hex(key) + "#.png"s;
 
 			printf("[%.01f%%] Texture (%d x %d) -> %s\n", percent, info.width, info.height, filename.c_str());
 
@@ -203,17 +215,6 @@ bool Indexer(const std::string& FolderName, std::function<bool(const std::string
 
 
 
-unsigned int hex2int(const std::string& hexstring)
-{
-	std::stringstream ss;
-	ss << std::hex << hexstring;
-	unsigned int value;
-	ss >> value;
-	return value;
-}
-
-
-
 void ExecuteCmds(std::vector<std::string> cmds)
 {
 	HT* HTfile = nullptr;;
@@ -356,6 +357,14 @@ void ShowUsage()
 
 	printf("-save <filename>\n");
 	printf("Exports the .htc/.hts file to an .hts file\n\n");
+
+	printf("-replace <directory>\n");
+	printf("Takes all #hex#.png files in the directory and put them in the opened file.\n");
+	printf("Filename must be the hash in hex form. For example a1b2d3e4.png\n\n");
+
+	printf("-replace <filename> <hash>\n");
+	printf("Take a file and puts it in the opened file.\n");
+	printf("<hash> should be a 64bit number. For example 4516864.\n\n");
 }
 
 
