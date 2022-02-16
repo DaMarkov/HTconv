@@ -30,7 +30,6 @@ bin/*
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
