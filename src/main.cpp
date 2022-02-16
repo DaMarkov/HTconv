@@ -29,7 +29,7 @@ unsigned int hex2int(const std::string& hexstring)
 
 
 
-std::string int2hex(unsigned int value)
+std::string int2hex(uint64_t value)
 {
 	std::stringstream stream;
 	stream << std::hex << value;
@@ -365,31 +365,18 @@ void ShowUsage()
 	printf("-replace <filename> <hash>\n");
 	printf("Take a file and puts it in the opened file.\n");
 	printf("<hash> should be a 64bit number. For example 4516864.\n\n");
+
+	printf("-dump\n");
+	printf("Creates dump.txt with all info about the opened file.\n\n");
 }
 
 
 
 int main(int argc, char** argv)
 {
-	/*HTS hts("cache\\org_THE LEGEND OF ZELDA_HIRESTEXTURES.hts");
-
-	if (!hts)
-	{
-		printf("File not found!");
-		return -1;
-	}
-
-	if (!hts.SaveTo("cache\\THE LEGEND OF ZELDA_HIRESTEXTURES.hts"))
-		printf("\n\nSaving failed!!!\n\n");*/
-
 	std::vector<std::string> cmds;
 	for (int i = 1; i < argc; i++)
 		cmds.push_back(argv[i]);
-
-	//cmds.push_back("-open");
-	//cmds.push_back("zelda.hts");
-	//cmds.push_back("-export");
-	//cmds.push_back("export");
 
 	ExecuteCmds(cmds);
 
